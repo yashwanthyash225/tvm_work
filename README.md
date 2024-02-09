@@ -33,3 +33,6 @@ export TVM_HOME=/path/to/tvm
 export PYTHONPATH=$TVM_HOME/python:${PYTHONPATH}
 ```
 3. ```$ source ~/.bashrc```
+
+# Install TVM through pip
+Another method to install TVM is to use ```$ pip install apache-tvm --pre ```
