@@ -1,0 +1,942 @@
+; ModuleID = 'TVMMod'
+source_filename = "TVMMod"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-unknown-linux-gnu"
+
+%0 = type { double }
+%1 = type { ptr, %2, i32, %3, ptr, ptr, i64 }
+%2 = type { i32, i32 }
+%3 = type { i8, i8, i16 }
+
+@__TVMAPISetLastError = linkonce dllexport local_unnamed_addr global ptr null, align 8
+@.str = private constant [97 x i8] c"Assert fail: num_args == 4, tvmgen_default_fused_nn_contrib_dense_pack_add: num_args should be 4\00", align 1
+@.str.1 = private constant [152 x i8] c"Assert fail: p0_code == 3 or p0_code == 13 or p0_code == 7 or p0_code == 4, tvmgen_default_fused_nn_contrib_dense_pack_add: Expect arg[0] to be pointer\00", align 1
+@.str.2 = private constant [152 x i8] c"Assert fail: p1_code == 3 or p1_code == 13 or p1_code == 7 or p1_code == 4, tvmgen_default_fused_nn_contrib_dense_pack_add: Expect arg[1] to be pointer\00", align 1
+@.str.3 = private constant [152 x i8] c"Assert fail: p2_code == 3 or p2_code == 13 or p2_code == 7 or p2_code == 4, tvmgen_default_fused_nn_contrib_dense_pack_add: Expect arg[2] to be pointer\00", align 1
+@.str.4 = private constant [164 x i8] c"Assert fail: T_add_code == 3 or T_add_code == 13 or T_add_code == 7 or T_add_code == 4, tvmgen_default_fused_nn_contrib_dense_pack_add: Expect arg[3] to be pointer\00", align 1
+@.str.5 = private constant [133 x i8] c"Assert fail: 2 == T.tvm_struct_get(p0, 0, 4, \22int32\22), tvmgen_default_fused_nn_contrib_dense_pack_add.p0.ndim is expected to equal 2\00", align 1
+@.str.6 = private constant [257 x i8] c"Assert fail: T.tvm_struct_get(p0, 0, 5, \22uint8\22) == T.uint8(2) and T.tvm_struct_get(p0, 0, 6, \22uint8\22) == T.uint8(32) and T.tvm_struct_get(p0, 0, 7, \22uint16\22) == T.uint16(1), tvmgen_default_fused_nn_contrib_dense_pack_add.p0.dtype is expected to be float32\00", align 1
+@.str.7 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p0_shape[0]) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p0.shape[0] has an unsatisfied constraint: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p0_shape[0])\00", align 1
+@.str.8 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p0_shape[1]) == 3, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p0.shape[1] has an unsatisfied constraint: 3 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p0_shape[1])\00", align 1
+@.str.9 = private constant [185 x i8] c"Assert fail: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p0_strides[1]), tvmgen_default_fused_nn_contrib_dense_pack_add.p0.strides: expected to be compact array\00", align 1
+@.str.10 = private constant [220 x i8] c"Assert fail: T.uint64(0) == T.tvm_struct_get(p0, 0, 8, \22uint64\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p0.byte_offset has an unsatisfied constraint: T.uint64(0) == T.tvm_struct_get(p0, 0, 8, \22uint64\22)\00", align 1
+@.str.11 = private constant [200 x i8] c"Assert fail: T.tvm_struct_get(p0, 0, 10, \22int32\22) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p0.device_type has an unsatisfied constraint: 1 == T.tvm_struct_get(p0, 0, 10, \22int32\22)\00", align 1
+@.str.12 = private constant [133 x i8] c"Assert fail: 3 == T.tvm_struct_get(p1, 0, 4, \22int32\22), tvmgen_default_fused_nn_contrib_dense_pack_add.p1.ndim is expected to equal 3\00", align 1
+@.str.13 = private constant [257 x i8] c"Assert fail: T.tvm_struct_get(p1, 0, 5, \22uint8\22) == T.uint8(2) and T.tvm_struct_get(p1, 0, 6, \22uint8\22) == T.uint8(32) and T.tvm_struct_get(p1, 0, 7, \22uint16\22) == T.uint16(1), tvmgen_default_fused_nn_contrib_dense_pack_add.p1.dtype is expected to be float32\00", align 1
+@.str.14 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_shape[0]) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape[0] has an unsatisfied constraint: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_shape[0])\00", align 1
+@.str.15 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_shape[1]) == 3, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape[1] has an unsatisfied constraint: 3 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_shape[1])\00", align 1
+@.str.16 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_shape[2]) == 2, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape[2] has an unsatisfied constraint: 2 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_shape[2])\00", align 1
+@.str.17 = private constant [272 x i8] c"Assert fail: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_strides[2]) and 2 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p1_strides[1]), tvmgen_default_fused_nn_contrib_dense_pack_add.p1.strides: expected to be compact array\00", align 1
+@.str.18 = private constant [220 x i8] c"Assert fail: T.uint64(0) == T.tvm_struct_get(p1, 0, 8, \22uint64\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p1.byte_offset has an unsatisfied constraint: T.uint64(0) == T.tvm_struct_get(p1, 0, 8, \22uint64\22)\00", align 1
+@.str.19 = private constant [200 x i8] c"Assert fail: T.tvm_struct_get(p1, 0, 10, \22int32\22) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p1.device_type has an unsatisfied constraint: 1 == T.tvm_struct_get(p1, 0, 10, \22int32\22)\00", align 1
+@.str.20 = private constant [206 x i8] c"Assert fail: dev_id == T.tvm_struct_get(p1, 0, 9, \22int32\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p1.device_id has an unsatisfied constraint: dev_id == T.tvm_struct_get(p1, 0, 9, \22int32\22)\00", align 1
+@.str.21 = private constant [133 x i8] c"Assert fail: 2 == T.tvm_struct_get(p2, 0, 4, \22int32\22), tvmgen_default_fused_nn_contrib_dense_pack_add.p2.ndim is expected to equal 2\00", align 1
+@.str.22 = private constant [257 x i8] c"Assert fail: T.tvm_struct_get(p2, 0, 5, \22uint8\22) == T.uint8(2) and T.tvm_struct_get(p2, 0, 6, \22uint8\22) == T.uint8(32) and T.tvm_struct_get(p2, 0, 7, \22uint16\22) == T.uint16(1), tvmgen_default_fused_nn_contrib_dense_pack_add.p2.dtype is expected to be float32\00", align 1
+@.str.23 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p2_shape[0]) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p2.shape[0] has an unsatisfied constraint: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p2_shape[0])\00", align 1
+@.str.24 = private constant [275 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p2_shape[1]) == 2, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p2.shape[1] has an unsatisfied constraint: 2 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p2_shape[1])\00", align 1
+@.str.25 = private constant [185 x i8] c"Assert fail: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_p2_strides[1]), tvmgen_default_fused_nn_contrib_dense_pack_add.p2.strides: expected to be compact array\00", align 1
+@.str.26 = private constant [220 x i8] c"Assert fail: T.uint64(0) == T.tvm_struct_get(p2, 0, 8, \22uint64\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p2.byte_offset has an unsatisfied constraint: T.uint64(0) == T.tvm_struct_get(p2, 0, 8, \22uint64\22)\00", align 1
+@.str.27 = private constant [200 x i8] c"Assert fail: T.tvm_struct_get(p2, 0, 10, \22int32\22) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p2.device_type has an unsatisfied constraint: 1 == T.tvm_struct_get(p2, 0, 10, \22int32\22)\00", align 1
+@.str.28 = private constant [206 x i8] c"Assert fail: dev_id == T.tvm_struct_get(p2, 0, 9, \22int32\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.p2.device_id has an unsatisfied constraint: dev_id == T.tvm_struct_get(p2, 0, 9, \22int32\22)\00", align 1
+@.str.29 = private constant [139 x i8] c"Assert fail: 2 == T.tvm_struct_get(T_add, 0, 4, \22int32\22), tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.ndim is expected to equal 2\00", align 1
+@.str.30 = private constant [269 x i8] c"Assert fail: T.tvm_struct_get(T_add, 0, 5, \22uint8\22) == T.uint8(2) and T.tvm_struct_get(T_add, 0, 6, \22uint8\22) == T.uint8(32) and T.tvm_struct_get(T_add, 0, 7, \22uint16\22) == T.uint16(1), tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.dtype is expected to be float32\00", align 1
+@.str.31 = private constant [284 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_T_add_shape[0]) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.shape[0] has an unsatisfied constraint: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_T_add_shape[0])\00", align 1
+@.str.32 = private constant [284 x i8] c"Assert fail: T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_T_add_shape[1]) == 2, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.shape[1] has an unsatisfied constraint: 2 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_T_add_shape[1])\00", align 1
+@.str.33 = private constant [191 x i8] c"Assert fail: 1 == T.Cast(\22int32\22, tvmgen_default_fused_nn_contrib_dense_pack_add_T_add_strides[1]), tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.strides: expected to be compact array\00", align 1
+@.str.34 = private constant [229 x i8] c"Assert fail: T.uint64(0) == T.tvm_struct_get(T_add, 0, 8, \22uint64\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.byte_offset has an unsatisfied constraint: T.uint64(0) == T.tvm_struct_get(T_add, 0, 8, \22uint64\22)\00", align 1
+@.str.35 = private constant [209 x i8] c"Assert fail: T.tvm_struct_get(T_add, 0, 10, \22int32\22) == 1, Argument tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.device_type has an unsatisfied constraint: 1 == T.tvm_struct_get(T_add, 0, 10, \22int32\22)\00", align 1
+@.str.36 = private constant [215 x i8] c"Assert fail: dev_id == T.tvm_struct_get(T_add, 0, 9, \22int32\22), Argument tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.device_id has an unsatisfied constraint: dev_id == T.tvm_struct_get(T_add, 0, 9, \22int32\22)\00", align 1
+@__tvm_main__ = weak dllexport local_unnamed_addr constant [47 x i8] c"tvmgen_default_fused_nn_contrib_dense_pack_add\00", align 1
+@llvm.global_ctors = appending global [0 x { i32, ptr, ptr }] zeroinitializer
+
+define dllexport i32 @tvmgen_default_fused_nn_contrib_dense_pack_add(ptr noalias nocapture readonly %args, ptr noalias nocapture readonly %arg_type_ids, i32 %num_args, ptr noalias nocapture readnone %out_ret_value, ptr noalias nocapture readnone %out_ret_tcode, ptr noalias nocapture readnone %resource_handle) local_unnamed_addr #0 !dbg !4 {
+entry:
+  call void @llvm.dbg.value(metadata ptr %args, metadata !11, metadata !DIExpression()), !dbg !17
+  call void @llvm.dbg.value(metadata ptr %arg_type_ids, metadata !12, metadata !DIExpression()), !dbg !17
+  call void @llvm.dbg.value(metadata i32 %num_args, metadata !13, metadata !DIExpression()), !dbg !17
+  call void @llvm.dbg.value(metadata ptr %out_ret_value, metadata !14, metadata !DIExpression()), !dbg !17
+  call void @llvm.dbg.value(metadata ptr %out_ret_tcode, metadata !15, metadata !DIExpression()), !dbg !17
+  call void @llvm.dbg.value(metadata ptr %resource_handle, metadata !16, metadata !DIExpression()), !dbg !17
+  %0 = icmp eq i32 %num_args, 4, !dbg !17
+  br i1 %0, label %assert_end, label %assert_fail, !dbg !17, !prof !18
+
+common.ret:                                       ; preds = %assert_end90, %assert_fail89, %assert_fail87, %assert_fail85, %assert_fail83, %assert_fail79, %assert_fail77, %assert_fail75, %assert_fail71, %assert_fail69, %assert_fail67, %assert_fail65, %assert_fail63, %assert_fail59, %assert_fail57, %assert_fail55, %assert_fail51, %assert_fail49, %assert_fail47, %assert_fail45, %assert_fail43, %assert_fail39, %assert_fail37, %assert_fail35, %assert_fail33, %assert_fail29, %assert_fail27, %assert_fail25, %assert_fail23, %assert_fail21, %assert_fail19, %assert_fail17, %assert_fail13, %assert_fail11, %assert_fail9, %assert_fail7, %assert_fail5, %assert_fail
+  %common.ret.op = phi i32 [ -1, %assert_fail ], [ -1, %assert_fail5 ], [ -1, %assert_fail7 ], [ -1, %assert_fail9 ], [ -1, %assert_fail11 ], [ -1, %assert_fail13 ], [ -1, %assert_fail17 ], [ -1, %assert_fail19 ], [ -1, %assert_fail21 ], [ -1, %assert_fail23 ], [ -1, %assert_fail25 ], [ -1, %assert_fail27 ], [ -1, %assert_fail29 ], [ -1, %assert_fail33 ], [ -1, %assert_fail35 ], [ -1, %assert_fail37 ], [ -1, %assert_fail39 ], [ -1, %assert_fail43 ], [ -1, %assert_fail45 ], [ -1, %assert_fail47 ], [ -1, %assert_fail49 ], [ -1, %assert_fail51 ], [ -1, %assert_fail55 ], [ -1, %assert_fail57 ], [ -1, %assert_fail59 ], [ -1, %assert_fail63 ], [ -1, %assert_fail65 ], [ -1, %assert_fail67 ], [ -1, %assert_fail69 ], [ -1, %assert_fail71 ], [ -1, %assert_fail75 ], [ -1, %assert_fail77 ], [ -1, %assert_fail79 ], [ -1, %assert_fail83 ], [ -1, %assert_fail85 ], [ -1, %assert_fail87 ], [ -1, %assert_fail89 ], [ 0, %assert_end90 ]
+  ret i32 %common.ret.op, !dbg !17
+
+assert_fail:                                      ; preds = %entry
+  %1 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %1(ptr nonnull @.str), !dbg !17
+  br label %common.ret
+
+assert_end:                                       ; preds = %entry
+  %p0.code = load i32, ptr %arg_type_ids, align 4, !dbg !17, !tbaa !22
+  %2 = getelementptr inbounds i32, ptr %arg_type_ids, i64 1, !dbg !17
+  %p1.code = load i32, ptr %2, align 4, !dbg !17, !tbaa !33
+  %3 = getelementptr inbounds i32, ptr %arg_type_ids, i64 2, !dbg !17
+  %p2.code = load i32, ptr %3, align 4, !dbg !17, !tbaa !35
+  %4 = getelementptr inbounds i32, ptr %arg_type_ids, i64 3, !dbg !17
+  %T_add.code = load i32, ptr %4, align 4, !dbg !17, !tbaa !38
+  %p0 = load ptr, ptr %args, align 8, !dbg !17
+  %5 = getelementptr inbounds %0, ptr %args, i64 1, !dbg !17
+  %p1 = load ptr, ptr %5, align 8, !dbg !17
+  %6 = getelementptr inbounds %0, ptr %args, i64 2, !dbg !17
+  %p2 = load ptr, ptr %6, align 8, !dbg !17
+  %7 = getelementptr inbounds %0, ptr %args, i64 3, !dbg !17
+  %T_add = load ptr, ptr %7, align 8, !dbg !17
+  %p091 = load ptr, ptr %p0, align 8, !dbg !17
+  call void @llvm.assume(i1 true) [ "align"(ptr %p091, i64 64) ], !dbg !17
+  %8 = getelementptr inbounds %1, ptr %p0, i64 0, i32 4, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.p0.shape = load ptr, ptr %8, align 8, !dbg !17
+  %9 = getelementptr inbounds %1, ptr %p0, i64 0, i32 5, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.p0.strides = load ptr, ptr %9, align 8, !dbg !17
+  %10 = getelementptr inbounds %1, ptr %p0, i64 0, i32 1, i32 1, !dbg !17
+  %dev_id = load i32, ptr %10, align 4, !dbg !17
+  %p192 = load ptr, ptr %p1, align 8, !dbg !17
+  call void @llvm.assume(i1 true) [ "align"(ptr %p192, i64 64) ], !dbg !17
+  %11 = getelementptr inbounds %1, ptr %p1, i64 0, i32 4, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape = load ptr, ptr %11, align 8, !dbg !17
+  %12 = getelementptr inbounds %1, ptr %p1, i64 0, i32 5, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.strides = load ptr, ptr %12, align 8, !dbg !17
+  %p294 = load ptr, ptr %p2, align 8, !dbg !17
+  call void @llvm.assume(i1 true) [ "align"(ptr %p294, i64 64) ], !dbg !17
+  %13 = getelementptr inbounds %1, ptr %p2, i64 0, i32 4, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.p2.shape = load ptr, ptr %13, align 8, !dbg !17
+  %14 = getelementptr inbounds %1, ptr %p2, i64 0, i32 5, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.p2.strides = load ptr, ptr %14, align 8, !dbg !17
+  %T_add93 = load ptr, ptr %T_add, align 8, !dbg !17
+  call void @llvm.assume(i1 true) [ "align"(ptr %T_add93, i64 64) ], !dbg !17
+  %15 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 4, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.shape = load ptr, ptr %15, align 8, !dbg !17
+  %16 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 5, !dbg !17
+  %tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.strides = load ptr, ptr %16, align 8, !dbg !17
+  switch i32 %p0.code, label %assert_fail5 [
+    i32 13, label %assert_end6
+    i32 7, label %assert_end6
+    i32 4, label %assert_end6
+    i32 3, label %assert_end6
+  ], !dbg !17
+
+assert_fail5:                                     ; preds = %assert_end
+  %17 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %17(ptr nonnull @.str.1), !dbg !17
+  br label %common.ret
+
+assert_end6:                                      ; preds = %assert_end, %assert_end, %assert_end, %assert_end
+  switch i32 %p1.code, label %assert_fail7 [
+    i32 13, label %assert_end8
+    i32 7, label %assert_end8
+    i32 4, label %assert_end8
+    i32 3, label %assert_end8
+  ], !dbg !17
+
+assert_fail7:                                     ; preds = %assert_end6
+  %18 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %18(ptr nonnull @.str.2), !dbg !17
+  br label %common.ret
+
+assert_end8:                                      ; preds = %assert_end6, %assert_end6, %assert_end6, %assert_end6
+  switch i32 %p2.code, label %assert_fail9 [
+    i32 13, label %assert_end10
+    i32 7, label %assert_end10
+    i32 4, label %assert_end10
+    i32 3, label %assert_end10
+  ], !dbg !17
+
+assert_fail9:                                     ; preds = %assert_end8
+  %19 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %19(ptr nonnull @.str.3), !dbg !17
+  br label %common.ret
+
+assert_end10:                                     ; preds = %assert_end8, %assert_end8, %assert_end8, %assert_end8
+  switch i32 %T_add.code, label %assert_fail11 [
+    i32 13, label %assert_end12
+    i32 7, label %assert_end12
+    i32 4, label %assert_end12
+    i32 3, label %assert_end12
+  ], !dbg !17
+
+assert_fail11:                                    ; preds = %assert_end10
+  %20 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %20(ptr nonnull @.str.4), !dbg !17
+  br label %common.ret
+
+assert_end12:                                     ; preds = %assert_end10, %assert_end10, %assert_end10, %assert_end10
+  %21 = getelementptr inbounds %1, ptr %p0, i64 0, i32 2, !dbg !17
+  %22 = load i32, ptr %21, align 4, !dbg !17
+  %23 = icmp eq i32 %22, 2, !dbg !17
+  br i1 %23, label %assert_end16, label %assert_fail13, !dbg !17, !prof !18
+
+assert_fail13:                                    ; preds = %assert_end12
+  %24 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %24(ptr nonnull @.str.5), !dbg !17
+  br label %common.ret
+
+assert_end16:                                     ; preds = %assert_end12
+  %25 = getelementptr inbounds %1, ptr %p0, i64 0, i32 3, i32 2, !dbg !17
+  %26 = load i16, ptr %25, align 2, !dbg !17
+  %27 = icmp eq i16 %26, 1, !dbg !17
+  %28 = getelementptr inbounds %1, ptr %p0, i64 0, i32 3, i32 1, !dbg !17
+  %29 = load i8, ptr %28, align 1, !dbg !17
+  %30 = icmp eq i8 %29, 32, !dbg !17
+  %31 = getelementptr inbounds %1, ptr %p0, i64 0, i32 3, i32 0, !dbg !17
+  %32 = load i8, ptr %31, align 1, !dbg !17
+  %33 = icmp eq i8 %32, 2, !dbg !17
+  %34 = and i1 %30, %33, !dbg !17
+  %35 = and i1 %27, %34, !dbg !17
+  br i1 %35, label %assert_end18, label %assert_fail17, !dbg !17, !prof !18
+
+assert_fail17:                                    ; preds = %assert_end16
+  %36 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %36(ptr nonnull @.str.6), !dbg !17
+  br label %common.ret
+
+assert_end18:                                     ; preds = %assert_end16
+  %37 = load i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p0.shape, align 8, !dbg !17, !tbaa !40
+  %38 = and i64 %37, 4294967295, !dbg !17
+  %39 = icmp eq i64 %38, 1, !dbg !17
+  br i1 %39, label %assert_end20, label %assert_fail19, !dbg !17, !prof !18
+
+assert_fail19:                                    ; preds = %assert_end18
+  %40 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %40(ptr nonnull @.str.7), !dbg !17
+  br label %common.ret
+
+assert_end20:                                     ; preds = %assert_end18
+  %41 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p0.shape, i64 1, !dbg !17
+  %42 = load i64, ptr %41, align 8, !dbg !17, !tbaa !50
+  %43 = and i64 %42, 4294967295, !dbg !17
+  %44 = icmp eq i64 %43, 3, !dbg !17
+  br i1 %44, label %assert_end22, label %assert_fail21, !dbg !17, !prof !18
+
+assert_fail21:                                    ; preds = %assert_end20
+  %45 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %45(ptr nonnull @.str.8), !dbg !17
+  br label %common.ret
+
+assert_end22:                                     ; preds = %assert_end20
+  %.not = icmp eq ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p0.strides, null, !dbg !17
+  br i1 %.not, label %if_end, label %if_then, !dbg !17, !prof !52
+
+if_then:                                          ; preds = %assert_end22
+  %46 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p0.strides, i64 1, !dbg !17
+  %47 = load i64, ptr %46, align 8, !dbg !17, !tbaa !53
+  %48 = and i64 %47, 4294967295, !dbg !17
+  %49 = icmp eq i64 %48, 1, !dbg !17
+  br i1 %49, label %if_end, label %assert_fail23, !dbg !17, !prof !18
+
+if_end:                                           ; preds = %if_then, %assert_end22
+  %50 = getelementptr inbounds %1, ptr %p0, i64 0, i32 6, !dbg !17
+  %51 = load i64, ptr %50, align 8, !dbg !17
+  %52 = icmp eq i64 %51, 0, !dbg !17
+  br i1 %52, label %assert_end26, label %assert_fail25, !dbg !17, !prof !18
+
+assert_fail23:                                    ; preds = %if_then
+  %53 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %53(ptr nonnull @.str.9), !dbg !17
+  br label %common.ret
+
+assert_fail25:                                    ; preds = %if_end
+  %54 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %54(ptr nonnull @.str.10), !dbg !17
+  br label %common.ret
+
+assert_end26:                                     ; preds = %if_end
+  %55 = getelementptr inbounds %1, ptr %p0, i64 0, i32 1, i32 0, !dbg !17
+  %56 = load i32, ptr %55, align 4, !dbg !17
+  %57 = icmp eq i32 %56, 1, !dbg !17
+  br i1 %57, label %assert_end28, label %assert_fail27, !dbg !17, !prof !18
+
+assert_fail27:                                    ; preds = %assert_end26
+  %58 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %58(ptr nonnull @.str.11), !dbg !17
+  br label %common.ret
+
+assert_end28:                                     ; preds = %assert_end26
+  %59 = getelementptr inbounds %1, ptr %p1, i64 0, i32 2, !dbg !17
+  %60 = load i32, ptr %59, align 4, !dbg !17
+  %61 = icmp eq i32 %60, 3, !dbg !17
+  br i1 %61, label %assert_end32, label %assert_fail29, !dbg !17, !prof !18
+
+assert_fail29:                                    ; preds = %assert_end28
+  %62 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %62(ptr nonnull @.str.12), !dbg !17
+  br label %common.ret
+
+assert_end32:                                     ; preds = %assert_end28
+  %63 = getelementptr inbounds %1, ptr %p1, i64 0, i32 3, i32 2, !dbg !17
+  %64 = load i16, ptr %63, align 2, !dbg !17
+  %65 = icmp eq i16 %64, 1, !dbg !17
+  %66 = getelementptr inbounds %1, ptr %p1, i64 0, i32 3, i32 1, !dbg !17
+  %67 = load i8, ptr %66, align 1, !dbg !17
+  %68 = icmp eq i8 %67, 32, !dbg !17
+  %69 = getelementptr inbounds %1, ptr %p1, i64 0, i32 3, i32 0, !dbg !17
+  %70 = load i8, ptr %69, align 1, !dbg !17
+  %71 = icmp eq i8 %70, 2, !dbg !17
+  %72 = and i1 %68, %71, !dbg !17
+  %73 = and i1 %65, %72, !dbg !17
+  br i1 %73, label %assert_end34, label %assert_fail33, !dbg !17, !prof !18
+
+assert_fail33:                                    ; preds = %assert_end32
+  %74 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %74(ptr nonnull @.str.13), !dbg !17
+  br label %common.ret
+
+assert_end34:                                     ; preds = %assert_end32
+  %75 = load i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape, align 8, !dbg !17, !tbaa !63
+  %76 = and i64 %75, 4294967295, !dbg !17
+  %77 = icmp eq i64 %76, 1, !dbg !17
+  br i1 %77, label %assert_end36, label %assert_fail35, !dbg !17, !prof !18
+
+assert_fail35:                                    ; preds = %assert_end34
+  %78 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %78(ptr nonnull @.str.14), !dbg !17
+  br label %common.ret
+
+assert_end36:                                     ; preds = %assert_end34
+  %79 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape, i64 1, !dbg !17
+  %80 = load i64, ptr %79, align 8, !dbg !17, !tbaa !73
+  %81 = and i64 %80, 4294967295, !dbg !17
+  %82 = icmp eq i64 %81, 3, !dbg !17
+  br i1 %82, label %assert_end38, label %assert_fail37, !dbg !17, !prof !18
+
+assert_fail37:                                    ; preds = %assert_end36
+  %83 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %83(ptr nonnull @.str.15), !dbg !17
+  br label %common.ret
+
+assert_end38:                                     ; preds = %assert_end36
+  %84 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.shape, i64 2, !dbg !17
+  %85 = load i64, ptr %84, align 8, !dbg !17, !tbaa !75
+  %86 = and i64 %85, 4294967295, !dbg !17
+  %87 = icmp eq i64 %86, 2, !dbg !17
+  br i1 %87, label %assert_end40, label %assert_fail39, !dbg !17, !prof !18
+
+assert_fail39:                                    ; preds = %assert_end38
+  %88 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %88(ptr nonnull @.str.16), !dbg !17
+  br label %common.ret
+
+assert_end40:                                     ; preds = %assert_end38
+  %.not95 = icmp eq ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.strides, null, !dbg !17
+  br i1 %.not95, label %if_end42, label %if_then41, !dbg !17, !prof !52
+
+if_then41:                                        ; preds = %assert_end40
+  %89 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.strides, i64 1, !dbg !17
+  %90 = load i64, ptr %89, align 8, !dbg !17, !tbaa !78
+  %91 = and i64 %90, 4294967295, !dbg !17
+  %92 = icmp eq i64 %91, 2, !dbg !17
+  %93 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p1.strides, i64 2, !dbg !17
+  %94 = load i64, ptr %93, align 8, !dbg !17, !tbaa !88
+  %95 = and i64 %94, 4294967295, !dbg !17
+  %96 = icmp eq i64 %95, 1, !dbg !17
+  %97 = and i1 %92, %96, !dbg !17
+  br i1 %97, label %if_end42, label %assert_fail43, !dbg !17, !prof !18
+
+if_end42:                                         ; preds = %if_then41, %assert_end40
+  %98 = getelementptr inbounds %1, ptr %p1, i64 0, i32 6, !dbg !17
+  %99 = load i64, ptr %98, align 8, !dbg !17
+  %100 = icmp eq i64 %99, 0, !dbg !17
+  br i1 %100, label %assert_end46, label %assert_fail45, !dbg !17, !prof !18
+
+assert_fail43:                                    ; preds = %if_then41
+  %101 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %101(ptr nonnull @.str.17), !dbg !17
+  br label %common.ret
+
+assert_fail45:                                    ; preds = %if_end42
+  %102 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %102(ptr nonnull @.str.18), !dbg !17
+  br label %common.ret
+
+assert_end46:                                     ; preds = %if_end42
+  %103 = getelementptr inbounds %1, ptr %p1, i64 0, i32 1, i32 0, !dbg !17
+  %104 = load i32, ptr %103, align 4, !dbg !17
+  %105 = icmp eq i32 %104, 1, !dbg !17
+  br i1 %105, label %assert_end48, label %assert_fail47, !dbg !17, !prof !18
+
+assert_fail47:                                    ; preds = %assert_end46
+  %106 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %106(ptr nonnull @.str.19), !dbg !17
+  br label %common.ret
+
+assert_end48:                                     ; preds = %assert_end46
+  %107 = getelementptr inbounds %1, ptr %p1, i64 0, i32 1, i32 1, !dbg !17
+  %108 = load i32, ptr %107, align 4, !dbg !17
+  %109 = icmp eq i32 %dev_id, %108, !dbg !17
+  br i1 %109, label %assert_end50, label %assert_fail49, !dbg !17, !prof !18
+
+assert_fail49:                                    ; preds = %assert_end48
+  %110 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %110(ptr nonnull @.str.20), !dbg !17
+  br label %common.ret
+
+assert_end50:                                     ; preds = %assert_end48
+  %111 = getelementptr inbounds %1, ptr %p2, i64 0, i32 2, !dbg !17
+  %112 = load i32, ptr %111, align 4, !dbg !17
+  %113 = icmp eq i32 %112, 2, !dbg !17
+  br i1 %113, label %assert_end54, label %assert_fail51, !dbg !17, !prof !18
+
+assert_fail51:                                    ; preds = %assert_end50
+  %114 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %114(ptr nonnull @.str.21), !dbg !17
+  br label %common.ret
+
+assert_end54:                                     ; preds = %assert_end50
+  %115 = getelementptr inbounds %1, ptr %p2, i64 0, i32 3, i32 2, !dbg !17
+  %116 = load i16, ptr %115, align 2, !dbg !17
+  %117 = icmp eq i16 %116, 1, !dbg !17
+  %118 = getelementptr inbounds %1, ptr %p2, i64 0, i32 3, i32 1, !dbg !17
+  %119 = load i8, ptr %118, align 1, !dbg !17
+  %120 = icmp eq i8 %119, 32, !dbg !17
+  %121 = getelementptr inbounds %1, ptr %p2, i64 0, i32 3, i32 0, !dbg !17
+  %122 = load i8, ptr %121, align 1, !dbg !17
+  %123 = icmp eq i8 %122, 2, !dbg !17
+  %124 = and i1 %120, %123, !dbg !17
+  %125 = and i1 %117, %124, !dbg !17
+  br i1 %125, label %assert_end56, label %assert_fail55, !dbg !17, !prof !18
+
+assert_fail55:                                    ; preds = %assert_end54
+  %126 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %126(ptr nonnull @.str.22), !dbg !17
+  br label %common.ret
+
+assert_end56:                                     ; preds = %assert_end54
+  %127 = load i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p2.shape, align 8, !dbg !17, !tbaa !91
+  %128 = and i64 %127, 4294967295, !dbg !17
+  %129 = icmp eq i64 %128, 1, !dbg !17
+  br i1 %129, label %assert_end58, label %assert_fail57, !dbg !17, !prof !18
+
+assert_fail57:                                    ; preds = %assert_end56
+  %130 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %130(ptr nonnull @.str.23), !dbg !17
+  br label %common.ret
+
+assert_end58:                                     ; preds = %assert_end56
+  %131 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p2.shape, i64 1, !dbg !17
+  %132 = load i64, ptr %131, align 8, !dbg !17, !tbaa !101
+  %133 = and i64 %132, 4294967295, !dbg !17
+  %134 = icmp eq i64 %133, 2, !dbg !17
+  br i1 %134, label %assert_end60, label %assert_fail59, !dbg !17, !prof !18
+
+assert_fail59:                                    ; preds = %assert_end58
+  %135 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %135(ptr nonnull @.str.24), !dbg !17
+  br label %common.ret
+
+assert_end60:                                     ; preds = %assert_end58
+  %.not96 = icmp eq ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p2.strides, null, !dbg !17
+  br i1 %.not96, label %if_end62, label %if_then61, !dbg !17, !prof !52
+
+if_then61:                                        ; preds = %assert_end60
+  %136 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.p2.strides, i64 1, !dbg !17
+  %137 = load i64, ptr %136, align 8, !dbg !17, !tbaa !103
+  %138 = and i64 %137, 4294967295, !dbg !17
+  %139 = icmp eq i64 %138, 1, !dbg !17
+  br i1 %139, label %if_end62, label %assert_fail63, !dbg !17, !prof !18
+
+if_end62:                                         ; preds = %if_then61, %assert_end60
+  %140 = getelementptr inbounds %1, ptr %p2, i64 0, i32 6, !dbg !17
+  %141 = load i64, ptr %140, align 8, !dbg !17
+  %142 = icmp eq i64 %141, 0, !dbg !17
+  br i1 %142, label %assert_end66, label %assert_fail65, !dbg !17, !prof !18
+
+assert_fail63:                                    ; preds = %if_then61
+  %143 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %143(ptr nonnull @.str.25), !dbg !17
+  br label %common.ret
+
+assert_fail65:                                    ; preds = %if_end62
+  %144 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %144(ptr nonnull @.str.26), !dbg !17
+  br label %common.ret
+
+assert_end66:                                     ; preds = %if_end62
+  %145 = getelementptr inbounds %1, ptr %p2, i64 0, i32 1, i32 0, !dbg !17
+  %146 = load i32, ptr %145, align 4, !dbg !17
+  %147 = icmp eq i32 %146, 1, !dbg !17
+  br i1 %147, label %assert_end68, label %assert_fail67, !dbg !17, !prof !18
+
+assert_fail67:                                    ; preds = %assert_end66
+  %148 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %148(ptr nonnull @.str.27), !dbg !17
+  br label %common.ret
+
+assert_end68:                                     ; preds = %assert_end66
+  %149 = getelementptr inbounds %1, ptr %p2, i64 0, i32 1, i32 1, !dbg !17
+  %150 = load i32, ptr %149, align 4, !dbg !17
+  %151 = icmp eq i32 %dev_id, %150, !dbg !17
+  br i1 %151, label %assert_end70, label %assert_fail69, !dbg !17, !prof !18
+
+assert_fail69:                                    ; preds = %assert_end68
+  %152 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %152(ptr nonnull @.str.28), !dbg !17
+  br label %common.ret
+
+assert_end70:                                     ; preds = %assert_end68
+  %153 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 2, !dbg !17
+  %154 = load i32, ptr %153, align 4, !dbg !17
+  %155 = icmp eq i32 %154, 2, !dbg !17
+  br i1 %155, label %assert_end74, label %assert_fail71, !dbg !17, !prof !18
+
+assert_fail71:                                    ; preds = %assert_end70
+  %156 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %156(ptr nonnull @.str.29), !dbg !17
+  br label %common.ret
+
+assert_end74:                                     ; preds = %assert_end70
+  %157 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 3, i32 2, !dbg !17
+  %158 = load i16, ptr %157, align 2, !dbg !17
+  %159 = icmp eq i16 %158, 1, !dbg !17
+  %160 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 3, i32 1, !dbg !17
+  %161 = load i8, ptr %160, align 1, !dbg !17
+  %162 = icmp eq i8 %161, 32, !dbg !17
+  %163 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 3, i32 0, !dbg !17
+  %164 = load i8, ptr %163, align 1, !dbg !17
+  %165 = icmp eq i8 %164, 2, !dbg !17
+  %166 = and i1 %162, %165, !dbg !17
+  %167 = and i1 %159, %166, !dbg !17
+  br i1 %167, label %assert_end76, label %assert_fail75, !dbg !17, !prof !18
+
+assert_fail75:                                    ; preds = %assert_end74
+  %168 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %168(ptr nonnull @.str.30), !dbg !17
+  br label %common.ret
+
+assert_end76:                                     ; preds = %assert_end74
+  %169 = load i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.shape, align 8, !dbg !17, !tbaa !113
+  %170 = and i64 %169, 4294967295, !dbg !17
+  %171 = icmp eq i64 %170, 1, !dbg !17
+  br i1 %171, label %assert_end78, label %assert_fail77, !dbg !17, !prof !18
+
+assert_fail77:                                    ; preds = %assert_end76
+  %172 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %172(ptr nonnull @.str.31), !dbg !17
+  br label %common.ret
+
+assert_end78:                                     ; preds = %assert_end76
+  %173 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.shape, i64 1, !dbg !17
+  %174 = load i64, ptr %173, align 8, !dbg !17, !tbaa !123
+  %175 = and i64 %174, 4294967295, !dbg !17
+  %176 = icmp eq i64 %175, 2, !dbg !17
+  br i1 %176, label %assert_end80, label %assert_fail79, !dbg !17, !prof !18
+
+assert_fail79:                                    ; preds = %assert_end78
+  %177 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %177(ptr nonnull @.str.32), !dbg !17
+  br label %common.ret
+
+assert_end80:                                     ; preds = %assert_end78
+  %.not97 = icmp eq ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.strides, null, !dbg !17
+  br i1 %.not97, label %if_end82, label %if_then81, !dbg !17, !prof !52
+
+if_then81:                                        ; preds = %assert_end80
+  %178 = getelementptr inbounds i64, ptr %tvmgen_default_fused_nn_contrib_dense_pack_add.T_add.strides, i64 1, !dbg !17
+  %179 = load i64, ptr %178, align 8, !dbg !17, !tbaa !125
+  %180 = and i64 %179, 4294967295, !dbg !17
+  %181 = icmp eq i64 %180, 1, !dbg !17
+  br i1 %181, label %if_end82, label %assert_fail83, !dbg !17, !prof !18
+
+if_end82:                                         ; preds = %if_then81, %assert_end80
+  %182 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 6, !dbg !17
+  %183 = load i64, ptr %182, align 8, !dbg !17
+  %184 = icmp eq i64 %183, 0, !dbg !17
+  br i1 %184, label %assert_end86, label %assert_fail85, !dbg !17, !prof !18
+
+assert_fail83:                                    ; preds = %if_then81
+  %185 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %185(ptr nonnull @.str.33), !dbg !17
+  br label %common.ret
+
+assert_fail85:                                    ; preds = %if_end82
+  %186 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %186(ptr nonnull @.str.34), !dbg !17
+  br label %common.ret
+
+assert_end86:                                     ; preds = %if_end82
+  %187 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 1, i32 0, !dbg !17
+  %188 = load i32, ptr %187, align 4, !dbg !17
+  %189 = icmp eq i32 %188, 1, !dbg !17
+  br i1 %189, label %assert_end88, label %assert_fail87, !dbg !17, !prof !18
+
+assert_fail87:                                    ; preds = %assert_end86
+  %190 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %190(ptr nonnull @.str.35), !dbg !17
+  br label %common.ret
+
+assert_end88:                                     ; preds = %assert_end86
+  %191 = getelementptr inbounds %1, ptr %T_add, i64 0, i32 1, i32 1, !dbg !17
+  %192 = load i32, ptr %191, align 4, !dbg !17
+  %193 = icmp eq i32 %dev_id, %192, !dbg !17
+  br i1 %193, label %assert_end90, label %assert_fail89, !dbg !17, !prof !18
+
+assert_fail89:                                    ; preds = %assert_end88
+  %194 = load ptr, ptr @__TVMAPISetLastError, align 8, !dbg !17, !tbaa !19
+  tail call void %194(ptr nonnull @.str.36), !dbg !17
+  br label %common.ret
+
+assert_end90:                                     ; preds = %assert_end88
+  tail call fastcc void @tvmgen_default_fused_nn_contrib_dense_pack_add_compute_(ptr %p091, ptr %p192, ptr %T_add93, ptr %p294), !dbg !17
+  br label %common.ret
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
+declare void @llvm.assume(i1 noundef) #1
+
+; Function Attrs: mustprogress nofree noinline nosync nounwind willreturn memory(argmem: readwrite)
+define internal fastcc void @tvmgen_default_fused_nn_contrib_dense_pack_add_compute_(ptr noalias nocapture readonly align 64 %0, ptr noalias nocapture readonly align 64 %1, ptr noalias nocapture writeonly align 64 %2, ptr noalias nocapture readonly align 64 %3) unnamed_addr #2 {
+entry:
+  %4 = load float, ptr %0, align 64, !tbaa !135
+  %5 = insertelement <2 x float> undef, float %4, i64 0
+  %6 = shufflevector <2 x float> %5, <2 x float> undef, <2 x i32> zeroinitializer
+  %7 = load <2 x float>, ptr %1, align 64, !tbaa !137
+  %8 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %6, <2 x float> %7, <2 x float> zeroinitializer)
+  %9 = getelementptr inbounds float, ptr %0, i64 1
+  %10 = load float, ptr %9, align 4, !tbaa !135
+  %11 = insertelement <2 x float> undef, float %10, i64 0
+  %12 = shufflevector <2 x float> %11, <2 x float> undef, <2 x i32> zeroinitializer
+  %13 = getelementptr inbounds float, ptr %1, i64 2
+  %14 = load <2 x float>, ptr %13, align 8, !tbaa !137
+  %15 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %12, <2 x float> %14, <2 x float> %8)
+  %16 = getelementptr inbounds float, ptr %0, i64 2
+  %17 = load float, ptr %16, align 8, !tbaa !135
+  %18 = insertelement <2 x float> undef, float %17, i64 0
+  %19 = shufflevector <2 x float> %18, <2 x float> undef, <2 x i32> zeroinitializer
+  %20 = getelementptr inbounds float, ptr %1, i64 4
+  %21 = load <2 x float>, ptr %20, align 16, !tbaa !137
+  %22 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %19, <2 x float> %21, <2 x float> %15)
+  %23 = load <2 x float>, ptr %3, align 64, !tbaa !139
+  %24 = fadd <2 x float> %22, %23
+  store <2 x float> %24, ptr %2, align 64, !tbaa !149
+  ret void
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #3
+
+; Function Attrs: nofree nosync nounwind memory(none)
+define weak dso_local half @__truncsfhf2(float %a0) local_unnamed_addr #4 section ".text.tvm.fp16.conv" {
+b0:
+  %v0 = bitcast float %a0 to i32
+  %v1 = and i32 %v0, 2147483647
+  %v2 = add nsw i32 %v1, -947912704
+  %v3 = add nsw i32 %v1, -1199570944
+  %v4 = icmp ult i32 %v2, %v3
+  br i1 %v4, label %b1, label %b5
+
+b1:                                               ; preds = %b0
+  %v5 = lshr i32 %v0, 13
+  %v6 = and i32 %v5, 65535
+  %v7 = add nuw nsw i32 %v6, -114688
+  %v8 = and i32 %v0, 8191
+  %v9 = icmp ugt i32 %v8, 4096
+  br i1 %v9, label %b2, label %b3
+
+b2:                                               ; preds = %b1
+  %v10 = add nuw nsw i32 %v6, -114687
+  br label %b13
+
+b3:                                               ; preds = %b1
+  %v11 = icmp eq i32 %v8, 4096
+  br i1 %v11, label %b4, label %b13
+
+b4:                                               ; preds = %b3
+  %v12 = and i32 %v7, 65535
+  %v13 = and i32 %v5, 1
+  %v14 = add nuw nsw i32 %v12, %v13
+  br label %b13
+
+b5:                                               ; preds = %b0
+  %v15 = icmp ugt i32 %v1, 2139095040
+  br i1 %v15, label %b6, label %b7
+
+b6:                                               ; preds = %b5
+  %v16 = lshr i32 %v0, 13
+  %v17 = and i32 %v16, 511
+  %v18 = or i32 %v17, 32256
+  br label %b13
+
+b7:                                               ; preds = %b5
+  %v19 = icmp ugt i32 %v1, 1199570943
+  br i1 %v19, label %b13, label %b8
+
+b8:                                               ; preds = %b7
+  %v20 = icmp ult i32 %v1, 754974720
+  br i1 %v20, label %b13, label %b9
+
+b9:                                               ; preds = %b8
+  %v21 = lshr i32 %v1, 23
+  %v22 = sub nsw i32 113, %v21
+  %v23 = and i32 %v0, 8388607
+  %v24 = or i32 %v23, 8388608
+  %v25 = add nsw i32 %v21, -81
+  %v26 = shl i32 %v24, %v25
+  %v27 = icmp ne i32 %v26, 0
+  %v28 = lshr i32 %v24, %v22
+  %v29 = zext i1 %v27 to i32
+  %v30 = lshr i32 %v28, 13
+  %v31 = and i32 %v28, 8191
+  %v32 = or i32 %v31, %v29
+  %v33 = icmp ugt i32 %v32, 4096
+  br i1 %v33, label %b10, label %b11
+
+b10:                                              ; preds = %b9
+  %v34 = add nuw nsw i32 %v30, 1
+  br label %b13
+
+b11:                                              ; preds = %b9
+  %v35 = icmp eq i32 %v32, 4096
+  br i1 %v35, label %b12, label %b13
+
+b12:                                              ; preds = %b11
+  %v36 = and i32 %v30, 1
+  %v37 = add nuw nsw i32 %v36, %v30
+  br label %b13
+
+b13:                                              ; preds = %b12, %b11, %b10, %b8, %b7, %b6, %b4, %b3, %b2
+  %v38 = phi i32 [ %v18, %b6 ], [ %v10, %b2 ], [ %v14, %b4 ], [ %v7, %b3 ], [ 31744, %b7 ], [ 0, %b8 ], [ %v34, %b10 ], [ %v37, %b12 ], [ %v30, %b11 ]
+  %v39 = lshr i32 %v0, 16
+  %v40 = and i32 %v39, 32768
+  %v41 = or i32 %v38, %v40
+  %vlast = trunc i32 %v41 to i16
+  %vres = bitcast i16 %vlast to half
+  ret half %vres
+}
+
+; Function Attrs: nofree nosync nounwind memory(none)
+define weak dso_local float @__extendhfsf2(half %a0) local_unnamed_addr #4 section ".text.tvm.fp16.conv" {
+b0:
+  %vinp = bitcast half %a0 to i16
+  %v1 = and i16 %vinp, 32767
+  %v2 = zext i16 %v1 to i32
+  %v3 = add nsw i16 %v1, -1024
+  %v4 = icmp ult i16 %v3, 30720
+  br i1 %v4, label %b1, label %b2
+
+b1:                                               ; preds = %b0
+  %v5 = shl nuw nsw i32 %v2, 13
+  %v6 = add nuw nsw i32 %v5, 939524096
+  br label %b6
+
+b2:                                               ; preds = %b0
+  %v7 = icmp ugt i16 %v1, 31743
+  br i1 %v7, label %b3, label %b4
+
+b3:                                               ; preds = %b2
+  %v8 = shl nuw nsw i32 %v2, 13
+  %v9 = or i32 %v8, 2139095040
+  br label %b6
+
+b4:                                               ; preds = %b2
+  %v10 = icmp eq i16 %v1, 0
+  br i1 %v10, label %b6, label %b5
+
+b5:                                               ; preds = %b4
+  %v11 = icmp ult i16 %v1, 256
+  %v12 = lshr i32 %v2, 8
+  %v13 = select i1 %v11, i32 %v2, i32 %v12
+  %v14 = select i1 %v11, i32 32, i32 24
+  %v15 = icmp ult i32 %v13, 16
+  %v16 = lshr i32 %v13, 4
+  %v17 = add nsw i32 %v14, -4
+  %v18 = select i1 %v15, i32 %v13, i32 %v16
+  %v19 = select i1 %v15, i32 %v14, i32 %v17
+  %v20 = icmp ult i32 %v18, 4
+  %v21 = lshr i32 %v18, 2
+  %v22 = add nsw i32 %v19, -2
+  %v23 = select i1 %v20, i32 %v18, i32 %v21
+  %v24 = select i1 %v20, i32 %v19, i32 %v22
+  %v25 = icmp ult i32 %v23, 2
+  %v26 = sub nsw i32 0, %v23
+  %v27 = select i1 %v25, i32 %v26, i32 -2
+  %v28 = add nsw i32 %v27, %v24
+  %v29 = add nsw i32 %v28, -8
+  %v30 = shl i32 %v2, %v29
+  %v31 = xor i32 %v30, 8388608
+  %v32 = shl i32 %v28, 23
+  %v33 = sub i32 1124073472, %v32
+  %v34 = or i32 %v31, %v33
+  br label %b6
+
+b6:                                               ; preds = %b5, %b4, %b3, %b1
+  %v35 = phi i32 [ %v6, %b1 ], [ %v9, %b3 ], [ %v34, %b5 ], [ 0, %b4 ]
+  %v36 = and i16 %vinp, -32768
+  %v37 = zext i16 %v36 to i32
+  %v38 = shl nuw i32 %v37, 16
+  %v39 = or i32 %v35, %v38
+  %v40 = bitcast i32 %v39 to float
+  ret float %v40
+}
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare void @llvm.dbg.value(metadata, metadata, metadata) #5
+
+attributes #0 = { "target-cpu"="generic" }
+attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #2 = { mustprogress nofree noinline nosync nounwind willreturn memory(argmem: readwrite) "target-cpu"="generic" }
+attributes #3 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #4 = { nofree nosync nounwind memory(none) "target-cpu"="generic" "target-features" }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+
+!llvm.dbg.cu = !{!0}
+!llvm.module.flags = !{!2, !3}
+
+!0 = distinct !DICompileUnit(language: DW_LANG_C, file: !1, producer: "TVM", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
+!1 = !DIFile(filename: "main.tir", directory: ".")
+!2 = !{i32 2, !"tvm_target", !"llvm -mtriple=x86_64-unknown-linux-gnu"}
+!3 = !{i32 4, !"Debug Info Version", i32 3}
+!4 = distinct !DISubprogram(name: "main.tir", scope: !1, file: !1, type: !5, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagOptimized, unit: !0, retainedNodes: !10)
+!5 = !DISubroutineType(types: !6)
+!6 = !{!7, !8, !9, !7, !8, !9, !8}
+!7 = !DIBasicType(name: "int32", size: 32, encoding: DW_ATE_signed)
+!8 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null)
+!9 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !7)
+!10 = !{!11, !12, !13, !14, !15, !16}
+!11 = !DILocalVariable(name: "arg1", arg: 1, scope: !4, file: !1, type: !8)
+!12 = !DILocalVariable(name: "arg2", arg: 2, scope: !4, file: !1, type: !9)
+!13 = !DILocalVariable(name: "arg3", arg: 3, scope: !4, file: !1, type: !7)
+!14 = !DILocalVariable(name: "arg4", arg: 4, scope: !4, file: !1, type: !8)
+!15 = !DILocalVariable(name: "arg5", arg: 5, scope: !4, file: !1, type: !9)
+!16 = !DILocalVariable(name: "arg6", arg: 6, scope: !4, file: !1, type: !8)
+!17 = !DILocation(line: 0, scope: !4)
+!18 = !{!"branch_weights", i32 1048576, i32 1}
+!19 = !{!20, !20, i64 0}
+!20 = !{!"ctx_ptr", !21, i64 0}
+!21 = !{!"tvm-tbaa"}
+!22 = !{!23, !23, i64 0}
+!23 = !{!"0x42cbab0.w4.b0", !24, i64 0}
+!24 = !{!"0x42cbab0.w8.b0", !25, i64 0}
+!25 = !{!"0x42cbab0.w16.b0", !26, i64 0}
+!26 = !{!"0x42cbab0.w32.b0", !27, i64 0}
+!27 = !{!"0x42cbab0.w64.b0", !28, i64 0}
+!28 = !{!"0x42cbab0.w128.b0", !29, i64 0}
+!29 = !{!"0x42cbab0.w256.b0", !30, i64 0}
+!30 = !{!"0x42cbab0.w512.b0", !31, i64 0}
+!31 = !{!"0x42cbab0.w1024.b0", !32, i64 0}
+!32 = !{!"0x42cbab0", !21, i64 0}
+!33 = !{!34, !34, i64 0}
+!34 = !{!"0x42cbab0.w4.b4", !24, i64 0}
+!35 = !{!36, !36, i64 0}
+!36 = !{!"0x42cbab0.w4.b8", !37, i64 0}
+!37 = !{!"0x42cbab0.w8.b8", !25, i64 0}
+!38 = !{!39, !39, i64 0}
+!39 = !{!"0x42cbab0.w4.b12", !37, i64 0}
+!40 = !{!41, !41, i64 0}
+!41 = !{!"0x42e9b60.w8.b0", !42, i64 0}
+!42 = !{!"0x42e9b60.w16.b0", !43, i64 0}
+!43 = !{!"0x42e9b60.w32.b0", !44, i64 0}
+!44 = !{!"0x42e9b60.w64.b0", !45, i64 0}
+!45 = !{!"0x42e9b60.w128.b0", !46, i64 0}
+!46 = !{!"0x42e9b60.w256.b0", !47, i64 0}
+!47 = !{!"0x42e9b60.w512.b0", !48, i64 0}
+!48 = !{!"0x42e9b60.w1024.b0", !49, i64 0}
+!49 = !{!"0x42e9b60", !21, i64 0}
+!50 = !{!51, !51, i64 0}
+!51 = !{!"0x42e9b60.w8.b8", !42, i64 0}
+!52 = !{!"branch_weights", i32 1, i32 1048576}
+!53 = !{!54, !54, i64 0}
+!54 = !{!"0x436d800.w8.b8", !55, i64 0}
+!55 = !{!"0x436d800.w16.b0", !56, i64 0}
+!56 = !{!"0x436d800.w32.b0", !57, i64 0}
+!57 = !{!"0x436d800.w64.b0", !58, i64 0}
+!58 = !{!"0x436d800.w128.b0", !59, i64 0}
+!59 = !{!"0x436d800.w256.b0", !60, i64 0}
+!60 = !{!"0x436d800.w512.b0", !61, i64 0}
+!61 = !{!"0x436d800.w1024.b0", !62, i64 0}
+!62 = !{!"0x436d800", !21, i64 0}
+!63 = !{!64, !64, i64 0}
+!64 = !{!"0x2938eb0.w8.b0", !65, i64 0}
+!65 = !{!"0x2938eb0.w16.b0", !66, i64 0}
+!66 = !{!"0x2938eb0.w32.b0", !67, i64 0}
+!67 = !{!"0x2938eb0.w64.b0", !68, i64 0}
+!68 = !{!"0x2938eb0.w128.b0", !69, i64 0}
+!69 = !{!"0x2938eb0.w256.b0", !70, i64 0}
+!70 = !{!"0x2938eb0.w512.b0", !71, i64 0}
+!71 = !{!"0x2938eb0.w1024.b0", !72, i64 0}
+!72 = !{!"0x2938eb0", !21, i64 0}
+!73 = !{!74, !74, i64 0}
+!74 = !{!"0x2938eb0.w8.b8", !65, i64 0}
+!75 = !{!76, !76, i64 0}
+!76 = !{!"0x2938eb0.w8.b16", !77, i64 0}
+!77 = !{!"0x2938eb0.w16.b16", !66, i64 0}
+!78 = !{!79, !79, i64 0}
+!79 = !{!"0x44382e0.w8.b8", !80, i64 0}
+!80 = !{!"0x44382e0.w16.b0", !81, i64 0}
+!81 = !{!"0x44382e0.w32.b0", !82, i64 0}
+!82 = !{!"0x44382e0.w64.b0", !83, i64 0}
+!83 = !{!"0x44382e0.w128.b0", !84, i64 0}
+!84 = !{!"0x44382e0.w256.b0", !85, i64 0}
+!85 = !{!"0x44382e0.w512.b0", !86, i64 0}
+!86 = !{!"0x44382e0.w1024.b0", !87, i64 0}
+!87 = !{!"0x44382e0", !21, i64 0}
+!88 = !{!89, !89, i64 0}
+!89 = !{!"0x44382e0.w8.b16", !90, i64 0}
+!90 = !{!"0x44382e0.w16.b16", !81, i64 0}
+!91 = !{!92, !92, i64 0}
+!92 = !{!"0x4407850.w8.b0", !93, i64 0}
+!93 = !{!"0x4407850.w16.b0", !94, i64 0}
+!94 = !{!"0x4407850.w32.b0", !95, i64 0}
+!95 = !{!"0x4407850.w64.b0", !96, i64 0}
+!96 = !{!"0x4407850.w128.b0", !97, i64 0}
+!97 = !{!"0x4407850.w256.b0", !98, i64 0}
+!98 = !{!"0x4407850.w512.b0", !99, i64 0}
+!99 = !{!"0x4407850.w1024.b0", !100, i64 0}
+!100 = !{!"0x4407850", !21, i64 0}
+!101 = !{!102, !102, i64 0}
+!102 = !{!"0x4407850.w8.b8", !93, i64 0}
+!103 = !{!104, !104, i64 0}
+!104 = !{!"0x42f4370.w8.b8", !105, i64 0}
+!105 = !{!"0x42f4370.w16.b0", !106, i64 0}
+!106 = !{!"0x42f4370.w32.b0", !107, i64 0}
+!107 = !{!"0x42f4370.w64.b0", !108, i64 0}
+!108 = !{!"0x42f4370.w128.b0", !109, i64 0}
+!109 = !{!"0x42f4370.w256.b0", !110, i64 0}
+!110 = !{!"0x42f4370.w512.b0", !111, i64 0}
+!111 = !{!"0x42f4370.w1024.b0", !112, i64 0}
+!112 = !{!"0x42f4370", !21, i64 0}
+!113 = !{!114, !114, i64 0}
+!114 = !{!"0x42dc970.w8.b0", !115, i64 0}
+!115 = !{!"0x42dc970.w16.b0", !116, i64 0}
+!116 = !{!"0x42dc970.w32.b0", !117, i64 0}
+!117 = !{!"0x42dc970.w64.b0", !118, i64 0}
+!118 = !{!"0x42dc970.w128.b0", !119, i64 0}
+!119 = !{!"0x42dc970.w256.b0", !120, i64 0}
+!120 = !{!"0x42dc970.w512.b0", !121, i64 0}
+!121 = !{!"0x42dc970.w1024.b0", !122, i64 0}
+!122 = !{!"0x42dc970", !21, i64 0}
+!123 = !{!124, !124, i64 0}
+!124 = !{!"0x42dc970.w8.b8", !115, i64 0}
+!125 = !{!126, !126, i64 0}
+!126 = !{!"0x438b290.w8.b8", !127, i64 0}
+!127 = !{!"0x438b290.w16.b0", !128, i64 0}
+!128 = !{!"0x438b290.w32.b0", !129, i64 0}
+!129 = !{!"0x438b290.w64.b0", !130, i64 0}
+!130 = !{!"0x438b290.w128.b0", !131, i64 0}
+!131 = !{!"0x438b290.w256.b0", !132, i64 0}
+!132 = !{!"0x438b290.w512.b0", !133, i64 0}
+!133 = !{!"0x438b290.w1024.b0", !134, i64 0}
+!134 = !{!"0x438b290", !21, i64 0}
+!135 = !{!136, !136, i64 0}
+!136 = !{!"0x42c85a0", !21, i64 0}
+!137 = !{!138, !138, i64 0}
+!138 = !{!"0x4372ac0", !21, i64 0}
+!139 = !{!140, !140, i64 0}
+!140 = !{!"0x42c8280.w8.b0", !141, i64 0}
+!141 = !{!"0x42c8280.w16.b0", !142, i64 0}
+!142 = !{!"0x42c8280.w32.b0", !143, i64 0}
+!143 = !{!"0x42c8280.w64.b0", !144, i64 0}
+!144 = !{!"0x42c8280.w128.b0", !145, i64 0}
+!145 = !{!"0x42c8280.w256.b0", !146, i64 0}
+!146 = !{!"0x42c8280.w512.b0", !147, i64 0}
+!147 = !{!"0x42c8280.w1024.b0", !148, i64 0}
+!148 = !{!"0x42c8280", !21, i64 0}
+!149 = !{!150, !150, i64 0}
+!150 = !{!"0x42f2060.w8.b0", !151, i64 0}
+!151 = !{!"0x42f2060.w16.b0", !152, i64 0}
+!152 = !{!"0x42f2060.w32.b0", !153, i64 0}
+!153 = !{!"0x42f2060.w64.b0", !154, i64 0}
+!154 = !{!"0x42f2060.w128.b0", !155, i64 0}
+!155 = !{!"0x42f2060.w256.b0", !156, i64 0}
+!156 = !{!"0x42f2060.w512.b0", !157, i64 0}
+!157 = !{!"0x42f2060.w1024.b0", !158, i64 0}
+!158 = !{!"0x42f2060", !21, i64 0}
